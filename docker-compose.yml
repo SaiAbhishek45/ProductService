@@ -1,14 +1,47 @@
+version: "3.9"
+
 services:
 
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: productdb
+      MYSQL_USER: productuser
+      MYSQL_PASSWORD: productpass
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+
   eureka-server:
-    #image: eureka-server:v1
-    build: ../eureka-server
+    build: ./eureka-server
     container_name: eureka-server
+
     ports:
       - "8761:8761"
 
-  user-service:
+  product-service:
     build: .
     container_name: product-service
+
     ports:
       - "8081:8081"
+
+    environment:
+      DB_URL: jdbc:mysql://mysql-db:3306/productdb
+      DB_USERNAME: productuser
+      DB_PASSWORD: productpass
+
+      EUREKA_URI: http://eureka-server:8761/eureka
+
+    depends_on:
+      - mysql-db
+      - eureka-server
+
+volumes:
+  mysql-data:
