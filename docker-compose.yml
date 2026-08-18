@@ -1,0 +1,14 @@
+services:
+
+  eureka-server:
+    image: eureka-server:v1
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+
+  user-service:
+    image: user-service:v1
+    container_name: user-service
+    ports:
+      - "8081:8081"
+	  
