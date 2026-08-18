@@ -19,7 +19,7 @@ services:
       - mysql-data:/var/lib/mysql
 
   eureka-server:
-    build: ./eureka-server
+    build: ../eureka-server
     container_name: eureka-server
 
     ports:
