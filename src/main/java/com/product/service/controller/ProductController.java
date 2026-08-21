@@ -15,7 +15,7 @@ import com.product.service.dto.ProductResponse;
 import com.product.service.service.ProductService;
 
 @RestController
-@RequestMapping("/v1/products")
+@RequestMapping("product-service/v1/products")
 public class ProductController {
 
 	private final ProductService productService;
